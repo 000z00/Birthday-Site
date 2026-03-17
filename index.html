@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday | A Timeline of Surviving You</title>
+  <meta name="description" content="A digital birthday gift — a cinematic journey through years of friendship." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======================================================
+       SECTION 1 — INTRO HERO
+       Full-screen cinematic landing section.
+  ====================================================== -->
+  <section id="hero" class="hero-section">
+
+    <!-- Animated gradient background canvas -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Floating particles overlay -->
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-content">
+      <!-- ✏️ Replace [NAME] with the birthday person's name -->
+      <p class="hero-eyebrow">A digital gift for</p>
+      <h1 class="hero-title">HAPPY BIRTHDAY<br /><span class="hero-name">[NAME]</span></h1>
+      <p class="hero-subtitle">
+        A small digital gift from the two people<br />who have tolerated you the longest.
+      </p>
+      <div class="hero-made-by">
+        <span>Made by</span>
+        <!-- ✏️ Replace [Friend 1] and [Friend 2] with actual names -->
+        <strong class="f1">[Friend 1]</strong>
+        <span class="amp">+</span>
+        <strong class="f2">[Friend 2]</strong>
+      </div>
+
+      <button class="btn-enter" id="btn-enter">
+        <span>Enter the Timeline</span>
+        <!-- FIX 4 — aria-hidden hides decorative icon from screen readers -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       SECTION 2 — MEMORY LOADER
+       Appears after clicking "Enter the Timeline".
+       Typing animation loads years, then auto-scrolls.
+  ====================================================== -->
+  <section id="loader" class="loader-section">
+    <div class="loader-content">
+      <div class="loader-line" id="loader-line-1">Loading Memories<span class="cursor">_</span></div>
+      <div class="loader-years" id="loader-years">
+        <div class="loader-year" data-year="2008">2008</div>
+        <div class="loader-year" data-year="2012">2012</div>
+        <div class="loader-year" data-year="2016">2016</div>
+        <div class="loader-year" data-year="2020">2020</div>
+        <div class="loader-year" data-year="2024">2024</div>
+      </div>
+      <div class="loader-status" id="loader-status-1">Friendship database found.</div>
+      <div class="loader-status" id="loader-status-2">Opening timeline...</div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       SECTION 3 — IMMERSIVE FRIENDSHIP TIMELINE
+       5 full-screen memory blocks.
+       Each has: image, title, F1 comment, F2 comment.
+  ====================================================== -->
+  <section id="timeline" class="timeline-section">
+
+    <!-- Timeline label -->
+    <div class="timeline-label">
+      <span>TIMELINE OF FRIENDSHIP</span>
+    </div>
+
+    <!-- ── MEMORY 1 ── -->
+    <div class="memory-block" data-index="1">
+      <div class="memory-image-wrap">
+        <!-- 📷 Replace with: images/memory1.jpg -->
+        <img src="images/memory1.jpg" alt="Memory 1" class="memory-img" />
+        <div class="memory-img-placeholder">
+          <span>📷</span>
+          <p>images/memory1.jpg</p>
+        </div>
+      </div>
+      <div class="memory-text-wrap">
+        <div class="memory-number">01</div>
+        <h2 class="memory-title">The Day We Met</h2>
+        <!-- ✏️ Replace these with real quotes -->
+        <p class="memory-quote f1-quote">
+          <span class="speaker f1">[Friend 1]:</span>
+          "I thought he looked normal. A dangerous first impression."
+        </p>
+        <p class="memory-quote f2-quote">
+          <span class="speaker f2">[Friend 2]:</span>
+          "That assumption aged badly. Very, very badly."
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MEMORY 2 ── -->
+    <div class="memory-block memory-block--reverse" data-index="2">
+      <div class="memory-image-wrap">
+        <!-- 📷 Replace with: images/memory2.jpg -->
+        <img src="images/memory2.jpg" alt="Memory 2" class="memory-img" />
+        <div class="memory-img-placeholder">
+          <span>📷</span>
+          <p>images/memory2.jpg</p>
+        </div>
+      </div>
+      <div class="memory-text-wrap">
+        <div class="memory-number">02</div>
+        <h2 class="memory-title">The Incident We Don't Talk About</h2>
+        <!-- ✏️ Replace with real memory quotes -->
+        <p class="memory-quote f1-quote">
+          <span class="speaker f1">[Friend 1]:</span>
+          "We agreed never to speak of this. And yet here we are."
+        </p>
+        <p class="memory-quote f2-quote">
+          <span class="speaker f2">[Friend 2]:</span>
+          "The CCTV footage is still out there somewhere. I'm scared."
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MEMORY 3 ── -->
+    <div class="memory-block" data-index="3">
+      <div class="memory-image-wrap">
+        <!-- 📷 Replace with: images/memory3.jpg -->
+        <img src="images/memory3.jpg" alt="Memory 3" class="memory-img" />
+        <div class="memory-img-placeholder">
+          <span>📷</span>
+          <p>images/memory3.jpg</p>
+        </div>
+      </div>
+      <div class="memory-text-wrap">
+        <div class="memory-number">03</div>
+        <h2 class="memory-title">The Trip That Could Have Gone Better</h2>
+        <!-- ✏️ Replace with real memory quotes -->
+        <p class="memory-quote f1-quote">
+          <span class="speaker f1">[Friend 1]:</span>
+          "We got lost for two hours because someone refused to ask for directions."
+        </p>
+        <p class="memory-quote f2-quote">
+          <span class="speaker f2">[Friend 2]:</span>
+          "Those two hours were some of the funniest of my life, honestly."
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MEMORY 4 ── -->
+    <div class="memory-block memory-block--reverse" data-index="4">
+      <div class="memory-image-wrap">
+        <!-- 📷 Replace with: images/memory4.jpg -->
+        <img src="images/memory4.jpg" alt="Memory 4" class="memory-img" />
+        <div class="memory-img-placeholder">
+          <span>📷</span>
+          <p>images/memory4.jpg</p>
+        </div>
+      </div>
+      <div class="memory-text-wrap">
+        <div class="memory-number">04</div>
+        <h2 class="memory-title">When He Actually Came Through</h2>
+        <!-- ✏️ Replace with real memory quotes -->
+        <p class="memory-quote f1-quote">
+          <span class="speaker f1">[Friend 1]:</span>
+          "I didn't think he'd show up. He showed up. I'm still processing this."
+        </p>
+        <p class="memory-quote f2-quote">
+          <span class="speaker f2">[Friend 2]:</span>
+          "Mark the calendar. It happened once. Cherish it."
+        </p>
+      </div>
+    </div>
+
+    <!-- ── MEMORY 5 ── -->
+    <div class="memory-block" data-index="5">
+      <div class="memory-image-wrap">
+        <!-- 📷 Replace with: images/memory5.jpg -->
+        <img src="images/memory5.jpg" alt="Memory 5" class="memory-img" />
+        <div class="memory-img-placeholder">
+          <span>📷</span>
+          <p>images/memory5.jpg</p>
+        </div>
+      </div>
+      <div class="memory-text-wrap">
+        <div class="memory-number">05</div>
+        <h2 class="memory-title">Present Day — Still Somehow Friends</h2>
+        <!-- ✏️ Replace with real memory quotes -->
+        <p class="memory-quote f1-quote">
+          <span class="speaker f1">[Friend 1]:</span>
+          "Years later. We're still here. Unexplainable, really."
+        </p>
+        <p class="memory-quote f2-quote">
+          <span class="speaker f2">[Friend 2]:</span>
+          "Some friendships just survive despite all odds. This is one of them."
+        </p>
+      </div>
+    </div>
+
+  </section><!-- /timeline -->
+
+  <!-- ======================================================
+       SECTION 4 — FRIENDSHIP STATISTICS
+       Animated counters that trigger on scroll.
+  ====================================================== -->
+  <section id="stats" class="stats-section">
+    <div class="stats-inner">
+      <h2 class="stats-heading">By the Numbers</h2>
+      <p class="stats-sub">A scientific analysis of this friendship.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" data-target="7">0</div>
+          <div class="stat-label">Years of Friendship</div>
+          <div class="stat-desc">That's 7 years of tolerating each other. Voluntarily.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="104">0</div>
+          <div class="stat-label">Bad Decisions Together</div>
+          <div class="stat-desc">Not one of them regretted. All of them documented.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="0">0</div>
+          <div class="stat-label">Arguments He Won</div>
+          <div class="stat-desc">The data does not lie. We checked three times.</div>
+        </div>
+        <div class="stat-card stat-card--infinity">
+          <div class="stat-number stat-infinity">∞</div>
+          <div class="stat-label">Times He Embarrassed Us</div>
+          <div class="stat-desc">Counter exceeded capacity. We gave up tracking.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       SECTION 5 — TRANSITION TO LETTERS
+       Dark cinematic bridge between stats and letters.
+  ====================================================== -->
+  <section id="transition" class="transition-section">
+    <div class="transition-inner">
+      <div class="transition-line-deco"></div>
+      <p class="transition-text">
+        After all these memories…<br />
+        we still had a few things to say.
+      </p>
+      <div class="transition-line-deco"></div>
+      <button class="btn-letters" id="btn-letters">
+        <span>Open the Letters</span>
+        <!-- FIX 4 — aria-hidden hides decorative icon from screen readers -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       SECTION 6 — LETTERS SECTION
+       6 envelope cards in a grid. Click to open modal.
+  ====================================================== -->
+  <section id="letters" class="letters-section">
+    <h2 class="letters-heading">Letters We Never Sent</h2>
+    <p class="letters-sub">Until now.</p>
+
+    <div class="letters-grid">
+
+      <!-- ── LETTER 1 ── -->
+      <!-- FIX 3 — role=button + tabindex=0 make cards keyboard-accessible -->
+      <div class="envelope-card" data-letter="1" role="button" tabindex="0" aria-label="Open letter: Remember This Day">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-seal">✉</div>
+          <h3 class="envelope-title">Remember This Day</h3>
+          <span class="envelope-hint">tap to open</span>
+        </div>
+      </div>
+
+      <!-- ── LETTER 2 ── -->
+      <div class="envelope-card" data-letter="2" role="button" tabindex="0" aria-label="Open letter: The Dumbest Moment">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-seal">✉</div>
+          <h3 class="envelope-title">The Dumbest Moment</h3>
+          <span class="envelope-hint">tap to open</span>
+        </div>
+      </div>
+
+      <!-- ── LETTER 3 ── -->
+      <div class="envelope-card" data-letter="3" role="button" tabindex="0" aria-label="Open letter: One of Our Favorite Memories">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-seal">✉</div>
+          <h3 class="envelope-title">One of Our Favorite Memories</h3>
+          <span class="envelope-hint">tap to open</span>
+        </div>
+      </div>
+
+      <!-- ── LETTER 4 ── -->
+      <div class="envelope-card" data-letter="4" role="button" tabindex="0" aria-label="Open letter: The Time You Helped Us">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-seal">✉</div>
+          <h3 class="envelope-title">The Time You Helped Us</h3>
+          <span class="envelope-hint">tap to open</span>
+        </div>
+      </div>
+
+      <!-- ── LETTER 5 ── -->
+      <div class="envelope-card" data-letter="5" role="button" tabindex="0" aria-label="Open letter: Why We're Still Friends">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-seal">✉</div>
+          <h3 class="envelope-title">Why We're Still Friends</h3>
+          <span class="envelope-hint">tap to open</span>
+        </div>
+      </div>
+
+      <!-- ── LETTER 6 ── -->
+      <div class="envelope-card envelope-card--special" data-letter="6" role="button" tabindex="0" aria-label="Open letter: Open on Your Birthday">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-seal">🎂</div>
+          <h3 class="envelope-title">Open on Your Birthday</h3>
+          <span class="envelope-hint">⭐ the special one</span>
+        </div>
+      </div>
+
+    </div><!-- /letters-grid -->
+  </section>
+
+  <!-- ======================================================
+       LETTER MODAL
+       Pops up when an envelope is clicked.
+  ====================================================== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <!-- FIX 4 — role=dialog + aria-modal tell screen readers this is a modal -->
+    <div class="modal-box" id="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title-label">
+      <button class="modal-close" id="modal-close" aria-label="Close letter">✕</button>
+      <div class="modal-inner" id="modal-inner">
+        <!-- Content is injected by JavaScript based on letter data -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================
+       SECTION 7 — FINAL BIRTHDAY MESSAGE
+       Full-screen emotional closing + confetti.
+  ====================================================== -->
+  <section id="finale" class="finale-section">
+
+    <!-- Confetti canvas (drawn by JS) -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="finale-inner">
+      <div class="finale-badge">🎂 It's your day</div>
+
+      <h2 class="finale-title">Happy Birthday.</h2>
+      <p class="finale-message">
+        Life would genuinely be boring without you.<br />
+        Here's to another year of surviving together.
+      </p>
+
+      <div class="finale-signatures">
+        <!-- ✏️ Replace with actual friend names -->
+        <div class="signature f1-sig">
+          <span class="sig-heart">♥</span>
+          <span>[Friend 1]</span>
+        </div>
+        <div class="signature-divider">&</div>
+        <div class="signature f2-sig">
+          <span class="sig-heart">♥</span>
+          <span>[Friend 2]</span>
+        </div>
+      </div>
+
+      <!-- 🎬 Replace with actual birthday video -->
+      <!-- <video controls class="finale-video" poster="images/video-thumb.jpg">
+           <source src="videos/birthday.mp4" type="video/mp4" />
+           Your browser does not support the video tag.
+      </video> -->
+      <div class="finale-video-placeholder">
+        <div class="video-placeholder-inner">
+          <span>▶</span>
+          <p>videos/birthday.mp4</p>
+          <small>Replace with your birthday video</small>
+        </div>
+      </div>
+
+      <!-- 🎵 Background music (optional) -->
+      <!-- <audio id="bg-music" loop>
+           <source src="music/background.mp3" type="audio/mpeg" />
+      </audio> -->
+
+    </div><!-- /finale-inner -->
+  </section>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
