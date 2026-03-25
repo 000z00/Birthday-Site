@@ -22,7 +22,7 @@
   let W, H, blobs;
 
   function resize() {
-    W = canvas.width  = canvas.offsetWidth;
+    W = canvas.width = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
   }
 
@@ -30,8 +30,8 @@
   function createBlobs() {
     blobs = [
       { x: W * 0.2, y: H * 0.3, r: W * 0.35, vx: 0.22, vy: 0.18, hue: 210 }, // blue
-      { x: W * 0.8, y: H * 0.6, r: W * 0.3,  vx: -0.18, vy: 0.22, hue: 30  }, // orange
-      { x: W * 0.5, y: H * 0.8, r: W * 0.25, vx: 0.12, vy: -0.2,  hue: 270 }, // purple
+      { x: W * 0.8, y: H * 0.6, r: W * 0.3, vx: -0.18, vy: 0.22, hue: 30 }, // orange
+      { x: W * 0.5, y: H * 0.8, r: W * 0.25, vx: 0.12, vy: -0.2, hue: 270 }, // purple
     ];
   }
 
@@ -52,9 +52,9 @@
       if (b.y < -b.r || b.y > H + b.r) b.vy *= -1;
 
       const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-      grad.addColorStop(0,   `hsla(${b.hue}, 80%, 55%, 0.12)`);
+      grad.addColorStop(0, `hsla(${b.hue}, 80%, 55%, 0.12)`);
       grad.addColorStop(0.5, `hsla(${b.hue}, 70%, 45%, 0.05)`);
-      grad.addColorStop(1,    'hsla(0, 0%, 0%, 0)');
+      grad.addColorStop(1, 'hsla(0, 0%, 0%, 0)');
 
       ctx.fillStyle = grad;
       ctx.beginPath();
@@ -86,9 +86,9 @@
         if (b.x < -b.r || b.x > W + b.r) b.vx *= -1;
         if (b.y < -b.r || b.y > H + b.r) b.vy *= -1;
         const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        grad.addColorStop(0,   `hsla(${b.hue}, 80%, 55%, 0.12)`);
+        grad.addColorStop(0, `hsla(${b.hue}, 80%, 55%, 0.12)`);
         grad.addColorStop(0.5, `hsla(${b.hue}, 70%, 45%, 0.05)`);
-        grad.addColorStop(1,    'hsla(0, 0%, 0%, 0)');
+        grad.addColorStop(1, 'hsla(0, 0%, 0%, 0)');
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
@@ -127,7 +127,7 @@
   if (!container) return;
 
   const COUNT = 30;
-  const colors = ['#4da6ff', '#ff944d', '#c9a96e', '#ffffff'];
+  const colors = ['#4da6ff', '#a8d8ff', '#c9a96e', '#ffffff'];
 
   for (let i = 0; i < COUNT; i++) {
     const dot = document.createElement('div');
@@ -136,7 +136,7 @@
     const size = Math.random() * 4 + 1.5;
     const color = colors[Math.floor(Math.random() * colors.length)];
     const duration = (Math.random() * 8 + 6).toFixed(1);
-    const delay    = -(Math.random() * 8).toFixed(1);
+    const delay = -(Math.random() * 8).toFixed(1);
     const tx = (Math.random() * 60 - 30).toFixed(0);
     const ty = (Math.random() * 80 - 40).toFixed(0);
 
@@ -182,9 +182,9 @@ if (btn && loaderSection) {
 }
 
 function runLoaderSequence() {
-  const years    = document.querySelectorAll('.loader-year');
-  const status1  = document.getElementById('loader-status-1');
-  const status2  = document.getElementById('loader-status-2');
+  const years = document.querySelectorAll('.loader-year');
+  const status1 = document.getElementById('loader-status-1');
+  const status2 = document.getElementById('loader-status-2');
 
   let delay = 600;
   const step = 400;
@@ -229,15 +229,13 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
   /* ─── Memory block text panels ─── */
   document.querySelectorAll('.memory-text-wrap').forEach(el => {
     gsap.from(el, {
-      opacity: 0,
-      y: 50,
+      y: 30,
       duration: 1,
       ease: 'power3.out',
       scrollTrigger: {
         trigger: el,
-        start: 'top 78%',
-        end: 'top 40%',
-        toggleActions: 'play none none reverse',
+        start: 'top 85%',
+        toggleActions: 'play none none none',
       },
     });
   });
@@ -391,18 +389,18 @@ function animateCounter(el) {
   if (el.dataset.animated) return;  // run only once
   el.dataset.animated = 'true';
 
-  const target   = parseInt(el.dataset.target, 10);
+  const target = parseInt(el.dataset.target, 10);
   const duration = 1800; // ms
-  const start    = performance.now();
+  const start = performance.now();
 
   function easeOutQuart(t) {
     return 1 - Math.pow(1 - t, 4);
   }
 
   function tick(now) {
-    const elapsed  = now - start;
+    const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
-    const value    = Math.round(easeOutQuart(progress) * target);
+    const value = Math.round(easeOutQuart(progress) * target);
     el.textContent = value.toLocaleString();
     if (progress < 1) requestAnimationFrame(tick);
   }
@@ -437,65 +435,54 @@ if (btnLetters && lettersSection) {
 }
 
 
-/* ──────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────
    7) LETTER DATA
+   Single-narrator: one message per letter.
    Edit the text inside each letter here.
-   Each entry: title, image, f1 name, f1 message, f2 name, f2 message
-────────────────────────────────────────────────────────── */
+   Each entry: title, image, senderName, message
+───────────────────────────────────────────────────── */
 const letterData = [
   {
     num: '01',
     title: 'Remember This Day',
-    image: 'images/letter1.jpg',   // 📷 Replace with your image
-    f1Name: '[Friend 1]',          // ✏️ Replace with name
-    f1Msg: "There are days that define a friendship, and this was one of them. I don't think either of us knew it at the time. We just lived it.",
-    f2Name: '[Friend 2]',
-    f2Msg: "I still think about this day and smile. You probably don't even remember it. That's so you.",
+    image: 'images/letter1.jpg',
+    senderName: 'Rishabh',        // ✏️ Replace with your name
+    message: "Tanish the day you went up to the hill top with me that day; you,me and mahek. Bhai hilltop has never been that beautiful ever again",
   },
   {
     num: '02',
-    title: 'The Dumbest Moment',
-    image: 'images/letter2.jpg',   // 📷 Replace with your image
-    f1Name: '[Friend 1]',
-    f1Msg: "Objectively, it was the dumbest thing any of us has ever done. Subjectively, it was also the most fun. I regret nothing. Mostly.",
-    f2Name: '[Friend 2]',
-    f2Msg: "We have never spoken of this to anyone. And we never will. But we both know. We BOTH know.",
+    title: 'The Good Moments',
+    image: 'images/letter2.jpg',
+    senderName: 'Rishabh',
+    message: "Objectively, I don't even know what happened that day but damm boy you don't smile like that very often.",
   },
   {
     num: '03',
-    title: 'One of Our Favorite Memories',
-    image: 'images/letter3.jpg',   // 📷 Replace with your image
-    f1Name: '[Friend 1]',
-    f1Msg: "If I could bottle one day and keep it forever, it might be this one. Simple, stupid, perfect.",
-    f2Name: '[Friend 2]',
-    f2Msg: "This memory lives rent-free in my head. I hope it does in yours too. If not — rude.",
+    title: 'One of Your Favorite Memories',
+    image: 'images/letter3.jpg',
+    senderName: 'Rishabh',
+    message: "biradar how can we forget the trip with your sisters, bhai just imagine going with mine is making me shiver,... but I know one thing you fucking you enjoyed it.",
   },
   {
     num: '04',
-    title: 'The Time You Helped Us',
-    image: 'images/letter4.jpg',   // 📷 Replace with your image
-    f1Name: '[Friend 1]',
-    f1Msg: "I didn't ask for help. You helped anyway. That's the kind of thing that matters, even if we never talk about it.",
-    f2Name: '[Friend 2]',
-    f2Msg: "We tease you a lot. But when it counted, you were there. No questions, no conditions. Just there.",
+    title: 'The Time You Helped Me',
+    image: 'images/letter5.jpg',
+    senderName: 'Rishabh',
+    message: "Bhai jaan this things can't go without santosh in them, Never met the guy but know one thing, He was there for you when I couldn't be so that itself gives respect from my side.",
   },
   {
     num: '05',
-    title: "Why We're Still Friends",
-    image: 'images/letter5.jpg',   // 📷 Replace with your image
-    f1Name: '[Friend 1]',
-    f1Msg: "Honestly? I have no scientific explanation. But the years keep passing, and here we still are. I think that's the answer.",
-    f2Name: '[Friend 2]',
-    f2Msg: "Some friendships make sense. Ours doesn't — and that's exactly why it works.",
+    title: "Why I'm Still Your Friend",
+    image: 'images/letter4.jpg',
+    senderName: 'Rishabh',
+    message: "And Here you are my boi(damm tu aacha dhik rha hai), Listen Thank you for trustng me enough about everything, I know tune abhi bhi muje bhohat kuch nhi bataya hai and waiting tu khud muje bata dega so aaram se take time I m here.",
   },
   {
     num: '06',
     title: 'Open on Your Birthday',
-    image: 'images/letter6.jpg',   // 📷 Replace with your image
-    f1Name: '[Friend 1]',
-    f1Msg: "Happy Birthday. You've survived another full orbit around the sun — somehow. Genuinely proud of you. Have the best day.",
-    f2Name: '[Friend 2]',
-    f2Msg: "Today is yours. We hope it's as ridiculous and warm and full of the things you love as you are. Happy Birthday. We love you.",
+    image: 'images/WhatsApp Image 2026-03-25 at 12.31.47.jpeg',
+    senderName: 'Rishabh',
+    message: "Happy Birthday.\n\nYou've survived another full orbit around the sun — somehow. I'm genuinely proud of you, even when I don't say it.\n\nToday is yours. I hope it's full of the people and things that actually make you happy. You deserve that more than you think.\n\nLife would genuinely be boring without you.\n\n— Rishabh",
   },
 ];
 
@@ -503,30 +490,30 @@ const letterData = [
 /* ──────────────────────────────────────────────────────────
    8) ENVELOPE MODAL
 ────────────────────────────────────────────────────────── */
-const overlay    = document.getElementById('modal-overlay');
-const modalBox   = document.getElementById('modal-box');
-const closeBtn   = document.getElementById('modal-close');
+const overlay = document.getElementById('modal-overlay');
+const modalBox = document.getElementById('modal-box');
+const closeBtn = document.getElementById('modal-close');
 const modalInner = document.getElementById('modal-inner');
 
-/* Build modal HTML from letter data */
+/* Build modal HTML from letter data — single narrator */
 function buildModalContent(index) {
   const letter = letterData[index - 1];
   if (!letter) return;
 
+  /* Convert newlines in message to <br> tags for HTML display */
+  const messageHtml = (letter.message || '').replace(/\n/g, '<br />');
+
   modalInner.innerHTML = `
     <div class="modal-header">
       <span class="modal-letter-num">Letter ${letter.num}</span>
-      <h2 class="modal-title">${letter.title}</h2>
+      <h2 class="modal-title" id="modal-title-label">${letter.title}</h2>
     </div>
 
     <div class="modal-img-wrap">
-      <!-- 📷 Replace with: ${letter.image} -->
       <img
         src="${letter.image}"
         alt="${letter.title}"
         class="modal-letter-img"
-        onload="this.classList.add('loaded')"
-        onerror="this.style.display='none'"
       />
       <div class="modal-img-placeholder">
         <span>📷</span>
@@ -536,15 +523,32 @@ function buildModalContent(index) {
 
     <div class="modal-messages">
       <div class="modal-message from-f1">
-        <span class="modal-author f1">${letter.f1Name}</span>
-        <p>${letter.f1Msg}</p>
-      </div>
-      <div class="modal-message from-f2">
-        <span class="modal-author f2">${letter.f2Name}</span>
-        <p>${letter.f2Msg}</p>
+        <span class="modal-author f1">${letter.senderName || '[Your Name]'}</span>
+        <p>${messageHtml}</p>
       </div>
     </div>
   `;
+
+  /* Attach load/error listeners AFTER innerHTML is set — inline onload
+     attributes inside innerHTML do not fire reliably in all browsers. */
+  const modalImg = modalInner.querySelector('.modal-letter-img');
+  const modalPlaceholder = modalInner.querySelector('.modal-img-placeholder');
+  if (modalImg) {
+    const showImg = () => {
+      modalImg.classList.add('loaded');
+      if (modalPlaceholder) modalPlaceholder.style.display = 'none';
+    };
+    const hideImg = () => {
+      modalImg.style.display = 'none';
+    };
+    /* If already cached and complete, fire immediately */
+    if (modalImg.complete && modalImg.naturalWidth > 0) {
+      showImg();
+    } else {
+      modalImg.addEventListener('load', showImg);
+      modalImg.addEventListener('error', hideImg);
+    }
+  }
 }
 
 /* Open modal */
@@ -610,7 +614,7 @@ function launchConfetti() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  canvas.width  = window.innerWidth;
+  canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   const COLORS = [
@@ -630,7 +634,7 @@ function launchConfetti() {
     shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
     speed: Math.random() * 3 + 1.5,
     angle: Math.random() * Math.PI * 2,
-    spin:  (Math.random() - 0.5) * 0.12,
+    spin: (Math.random() - 0.5) * 0.12,
     drift: (Math.random() - 0.5) * 1.5,
     opacity: Math.random() * 0.5 + 0.5,
     life: 1,
@@ -669,8 +673,8 @@ function launchConfetti() {
     let allDone = true;
 
     pieces.forEach(p => {
-      p.y     += p.speed;
-      p.x     += p.drift;
+      p.y += p.speed;
+      p.x += p.drift;
       p.angle += p.spin;
 
       /* Fade out near bottom */
@@ -741,7 +745,68 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('resize', () => {
   const canvas = document.getElementById('confetti-canvas');
   if (canvas && confettiFired) {
-    canvas.width  = window.innerWidth;
+    canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
 });
+
+
+/* ──────────────────────────────────────────────────────────
+   13) INLINE VIDEO PLAYER 🎥
+   Plays a continuous looping video playlist in Section 7.
+────────────────────────────────────────────────────────── */
+(function initInlineVideo() {
+
+  /* ── 📋 VIDEO PLAYLIST — add/remove videos here ── */
+  const videoPlaylist = [
+    'videos/WhatsApp Video 2026-03-18 at 12.08.48.mp4',
+    'videos/WhatsApp Video 2026-03-18 at 13.14.13.mp4',
+    'videos/WhatsApp Video 2026-03-18 at 13.15.22.mp4',
+    'videos/WhatsApp Video 2026-03-18 at 19.44.58.mp4',
+    'videos/WhatsApp Video 2026-03-18 at 19.45.32.mp4',
+    'videos/WhatsApp Video 2026-03-18 at 19.48.02.mp4',
+  ];
+
+  let currentIndex = 0;
+
+  /* ── Element refs ── */
+  const videoEl = document.getElementById('video-player');
+  const prevBtn = document.getElementById('video-prev');
+  const nextBtn = document.getElementById('video-next');
+  const counterEl = document.getElementById('video-counter');
+
+  if (!videoEl) return; // guard
+
+  /* ── Load & play a video by index ── */
+  function loadVideo(index) {
+    currentIndex = ((index % videoPlaylist.length) + videoPlaylist.length) % videoPlaylist.length;
+    videoEl.src = videoPlaylist[currentIndex];
+    videoEl.load();
+    videoEl.play().catch(() => {
+      /* Autoplay blocked — video will wait for user interaction */
+    });
+    updateCounter();
+  }
+
+  /* ── Update the counter ── */
+  function updateCounter() {
+    if (counterEl) {
+      counterEl.textContent = `${currentIndex + 1} / ${videoPlaylist.length}`;
+    }
+  }
+
+  /* ── When current video ends → play next (loops infinitely) ── */
+  videoEl.addEventListener('ended', () => {
+    loadVideo(currentIndex + 1);
+  });
+
+  /* ── Start playing first video ── */
+  loadVideo(0);
+
+  /* ── Prev button ── */
+  if (prevBtn) prevBtn.addEventListener('click', () => loadVideo(currentIndex - 1));
+
+  /* ── Next button ── */
+  if (nextBtn) nextBtn.addEventListener('click', () => loadVideo(currentIndex + 1));
+
+})();

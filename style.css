@@ -10,10 +10,8 @@
     --bg: #0f0f14;
     --bg-alt: #13131a;
     --bg-card: #1a1a26;
-    --f1: #4da6ff;
-    /* Friend 1 — blue  */
-    --f2: #ff944d;
-    /* Friend 2 — orange */
+    --accent: #4da6ff;        /* Primary accent — blue */
+    --f1: #4da6ff;            /* kept for backwards compatibility */
     --gold: #c9a96e;
     --white: #ffffff;
     --muted: #8888aa;
@@ -56,12 +54,9 @@
   }
 
   /* ── Utility ───────────────────────────────────────── */
-  .f1 {
-    color: var(--f1);
-  }
-
-  .f2 {
-    color: var(--f2);
+  .f1,
+  .accent {
+    color: var(--accent);
   }
 
   /* ── Scrollbar ─────────────────────────────────────── */
@@ -168,7 +163,7 @@
 
   .hero-name {
     display: block;
-    background: linear-gradient(90deg, var(--f1), var(--f2));
+    background: linear-gradient(90deg, var(--accent), #a8d8ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -199,17 +194,8 @@
     font-weight: 600;
   }
 
-  .hero-made-by .f1 {
-    color: var(--f1);
-  }
-
-  .hero-made-by .f2 {
-    color: var(--f2);
-  }
-
-  .amp {
-    font-size: 1.1rem;
-    color: var(--white);
+  .hero-made-by .accent {
+    color: var(--accent);
   }
 
   /* Enter button */
@@ -238,7 +224,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, var(--f1), var(--f2));
+    background: var(--accent);
     opacity: 0;
     transition: opacity var(--transition);
   }
@@ -504,8 +490,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
@@ -540,14 +526,11 @@
     position: relative;
   }
 
-  .f1-quote {
+  /* Single-voice memory quote */
+  .solo-quote {
     background: rgba(77, 166, 255, 0.07);
-    border-left: 3px solid var(--f1);
-  }
-
-  .f2-quote {
-    background: rgba(255, 148, 77, 0.07);
-    border-left: 3px solid var(--f2);
+    border-left: 3px solid var(--accent);
+    font-style: italic;
   }
 
   .speaker {
@@ -557,6 +540,28 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 0.4rem;
+  }
+
+  /* Handwritten note beneath each memory quote */
+  .memory-note {
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(201, 169, 110, 0.85);
+    padding: 0.9rem 1.2rem;
+    background: rgba(201, 169, 110, 0.05);
+    border-radius: 10px;
+    border-left: 2px dashed rgba(201, 169, 110, 0.35);
+    position: relative;
+  }
+
+  .memory-note::before {
+    content: '✍️';
+    position: absolute;
+    top: -0.6rem;
+    left: 1rem;
+    font-size: 0.85rem;
   }
 
 
@@ -629,7 +634,7 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(3rem, 7vw, 5rem);
     font-weight: 900;
-    background: linear-gradient(135deg, var(--f1), var(--f2));
+    background: linear-gradient(135deg, var(--accent), #a8d8ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -676,7 +681,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(255, 148, 77, 0.04) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(77, 166, 255, 0.05) 0%, transparent 70%);
   }
 
   .transition-inner {
@@ -709,7 +714,7 @@
     align-items: center;
     gap: 0.7rem;
     padding: 1rem 2.5rem;
-    background: linear-gradient(135deg, var(--f1), var(--f2));
+    background: var(--accent);
     color: #000;
     border: none;
     border-radius: 50px;
@@ -960,15 +965,21 @@
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 1.8rem;
-    height: 240px;
+    max-height: 70vh;
     position: relative;
+    background: #0a0a12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .modal-img-wrap img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
     display: none;
+    border-radius: 10px;
   }
 
   .modal-img-wrap img.loaded {
@@ -1006,14 +1017,16 @@
     line-height: 1.85;
   }
 
+  /* Single sender message style */
   .modal-message.from-f1 {
     background: rgba(77, 166, 255, 0.08);
-    border-left: 3px solid var(--f1);
+    border-left: 3px solid var(--accent);
   }
 
+  /* kept in CSS but not rendered in single-narrator mode */
   .modal-message.from-f2 {
-    background: rgba(255, 148, 77, 0.08);
-    border-left: 3px solid var(--f2);
+    background: rgba(77, 166, 255, 0.05);
+    border-left: 3px solid rgba(77, 166, 255, 0.4);
   }
 
   .modal-author {
@@ -1127,12 +1140,10 @@
     font-size: 1.3rem;
   }
 
-  .f1-sig {
-    color: var(--f1);
-  }
-
-  .f2-sig {
-    color: var(--f2);
+  /* Single narrator signature */
+  .solo-sig {
+    color: var(--accent);
+    font-size: 1.4rem;
   }
 
   .sig-heart {
@@ -1140,11 +1151,10 @@
     font-size: 1rem;
   }
 
-  .signature-divider {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--muted);
-  }
+  /* kept for compatibility but unused in single-narrator mode */
+  .f1-sig { color: var(--accent); }
+  .f2-sig { color: var(--accent); }
+  .signature-divider { display: none; }
 
   /* Video placeholder */
   .finale-video-placeholder {
@@ -1286,5 +1296,118 @@
 
     .finale-title {
       font-size: 2.8rem;
+    }
+  }
+
+
+  /* ============================================================
+     INLINE VIDEO BOX (Section 7)
+  ============================================================ */
+  .inline-video-box {
+    background: #0f0f14;
+    border: 1px solid rgba(77, 166, 255, 0.2);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(77,166,255,0.1);
+  }
+
+  /* ── Header ── */
+  .video-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .video-modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ── Video Player ── */
+  .video-player-wrap {
+    position: relative;
+    background: #000;
+    /* Removed fixed aspect ratio since WhatsApp videos might be vertical */
+    height: 65vh;
+    max-height: 600px;
+    width: 100%;
+  }
+
+  .video-player {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #000;
+  }
+
+  /* Prev / Next nav buttons */
+  .video-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 2;
+  }
+
+  .video-nav:hover {
+    background: rgba(77, 166, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .video-nav--prev { left: 0.8rem; }
+  .video-nav--next { right: 0.8rem; }
+
+  /* ── Counter ── */
+  .video-counter {
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  /* ── Mobile adjustments ── */
+  @media (max-width: 600px) {
+    .inline-video-box {
+      border-radius: 14px;
+    }
+
+    .video-player-wrap {
+      height: 50vh;
+    }
+
+    .video-nav {
+      width: 36px;
+      height: 36px;
+      font-size: 1.3rem;
     }
   }
